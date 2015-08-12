@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Defining reliable spouts
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="F# DSL and runtime for Storm topologies"/>
+    <meta name="author" content="Faisal Waris"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FsStorm/content/style.css" />
+    <script type="text/javascript" src="/FsStorm/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/##GitHome##/##GitName##">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FsStorm/index.html">FsStorm</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Defining-reliable-spouts" class="anchor" href="#Defining-reliable-spouts">Defining reliable spouts</a></h1>
+
+<p><a href="https://storm.apache.org/documentation/Guaranteeing-message-processing.html">Processing guarantees</a> are the biggest selling point of Storm, please see the official docs for the details.
+FsStorm implements reliability semantics with "housekeeper" functions: defaultHousekeeper can be used as is for transient sources or as an inspiration for reliability over external/persistent sources. 
+The spout implementation is fairly similar to the "unreliable" version, with the addition of unique (int64) tuple ID:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">rnd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">Random</span>() <span class="c">// used for generating random messages</span>
+
+<span class="c">///cfg: the configution passed in by storm</span>
+<span class="c">///runner: a spout runner function (passed in from topology)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="f">spout</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="f">runner</span> (<span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">cfg</span><span class="o">:</span><span class="i">Configuration</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="v">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="f">ref</span> <span class="n">0L</span>
+    <span class="c">//define the &quot;next&quot; function</span>
+    <span class="c">//emit: a function that emits message to storm with unique ID</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="f">next</span> <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="f">emit</span> <span class="o">=</span> 
+         <span class="k">fun</span> () <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="i">async</span> { 
+                     <span class="i">tuple</span> [ <span onmouseout="hideTip(event, 'fs1', 12)" onmouseover="showTip(event, 'fs1', 12)" class="i">rnd</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 13)" onmouseover="showTip(event, 'fs12', 13)" class="i">Next</span>(<span class="n">0</span>, <span class="n">100</span>) ] 
+                     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="f">emit</span> (<span class="i">Threading</span><span class="o">.</span><span class="i">Interlocked</span><span class="o">.</span><span class="i">Increment</span> <span class="o">&amp;</span><span onmouseout="hideTip(event, 'fs7', 15)" onmouseover="showTip(event, 'fs7', 15)" class="i">count</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">contents</span>) 
+                   }
+    <span class="c">//run the spout</span>
+    <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="f">next</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="f">runner</span>
+	
+</pre>
+</td>
+</tr>
+</table>
+
+<h1><a name="Anchoring-and-named-streams" class="anchor" href="#Anchoring-and-named-streams">Anchoring and named streams</a></h1>
+
+<p>FsStorm has helper functions to emit to a named stream or to anchor a tuple:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">///cfg: the configuration passed in from Storm</span>
+<span class="c">///runner: passed in from topology</span>
+<span class="c">///emit: passed in from topology</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="f">addOneBolt</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="f">emit</span> <span onmouseout="hideTip(event, 'fs6', 22)" onmouseover="showTip(event, 'fs6', 22)" class="i">cfg</span> <span class="o">=</span> 
+    <span class="c">//define the consumer function </span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="f">add</span> (<span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="i">msg</span> <span class="o">:</span> <span class="i">Json</span>) <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs11', 25)" onmouseover="showTip(event, 'fs11', 25)" class="i">async</span> { 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="i">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">msg</span><span class="o">?</span><span class="i">tuple</span><span class="o">.</span>[<span class="n">0</span>]<span class="o">.</span><span class="i">ValI</span> <span class="o">+</span> <span class="n">1</span>
+            <span class="i">tuple</span> [ <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="i">x</span> ]
+            <span class="c">// write to a named stream</span>
+            <span class="o">|&gt;</span> <span class="i">namedStream</span> (<span class="k">match</span> <span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="i">x</span> <span class="o">%</span> <span class="n">2</span> <span class="k">with</span> | <span class="n">0</span> <span class="k">-&gt;</span> <span class="s">&quot;even&quot;</span> | _ <span class="k">-&gt;</span> <span class="s">&quot;odd&quot;</span>)
+            <span class="c">// anchor to ensure the entire tuple tree is processed before the spout is ack&#39;ed</span>
+            <span class="o">|&gt;</span> <span class="i">anchor</span> <span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">msg</span> <span class="c">// anchor to the original message</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 31)" onmouseover="showTip(event, 'fs16', 31)" class="f">emit</span>
+        }
+    <span class="c">//run the bolt</span>
+    <span onmouseout="hideTip(event, 'fs17', 32)" onmouseover="showTip(event, 'fs17', 32)" class="f">add</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 33)" onmouseover="showTip(event, 'fs15', 33)" class="f">runner</span>
+</pre>
+</td>
+</tr>
+</table>
+
+<p>Example of parametrization and use of the tuple's origin (component that emitted it and the stream that it arrived on) inspection:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">///cfg: the configuration passed in by Storm</span>
+<span class="c">///runner: passed in from topology</span>
+<span class="c">///log: log write</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="f">resultBolt</span> <span onmouseout="hideTip(event, 'fs15', 35)" onmouseover="showTip(event, 'fs15', 35)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs21', 36)" onmouseover="showTip(event, 'fs21', 36)" class="f">log</span> (<span onmouseout="hideTip(event, 'fs6', 37)" onmouseover="showTip(event, 'fs6', 37)" class="i">cfg</span><span class="o">:</span><span class="i">Configuration</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="i">desc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 39)" onmouseover="showTip(event, 'fs6', 39)" class="i">cfg</span><span class="o">.</span><span class="i">Json</span><span class="o">?</span><span class="i">conf</span><span class="o">?</span><span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="i">desc</span><span class="o">.</span><span class="i">Val</span> <span class="c">// the value passed in with the submitted topology Config</span>
+    <span class="c">//define the function that will return the consumer </span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="f">logResult</span> (<span onmouseout="hideTip(event, 'fs18', 42)" onmouseover="showTip(event, 'fs18', 42)" class="i">msg</span> <span class="o">:</span> <span class="i">Json</span>) <span class="o">=</span> 
+          <span onmouseout="hideTip(event, 'fs11', 43)" onmouseover="showTip(event, 'fs11', 43)" class="i">async</span> { 
+            <span onmouseout="hideTip(event, 'fs21', 44)" onmouseover="showTip(event, 'fs21', 44)" class="f">log</span> <span onmouseout="hideTip(event, 'fs22', 45)" onmouseover="showTip(event, 'fs22', 45)" class="i">desc</span> (<span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="f">sprintf</span> <span class="s">&quot;origin: </span><span class="pf">%A</span><span class="s">(</span><span class="pf">%A</span><span class="s">), data: </span><span class="pf">%A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs18', 47)" onmouseover="showTip(event, 'fs18', 47)" class="i">msg</span><span class="o">?</span><span class="i">comp</span><span class="o">.</span><span class="i">Val</span> <span onmouseout="hideTip(event, 'fs18', 48)" onmouseover="showTip(event, 'fs18', 48)" class="i">msg</span><span class="o">?</span><span class="i">stream</span><span class="o">.</span><span class="i">Val</span> <span onmouseout="hideTip(event, 'fs18', 49)" onmouseover="showTip(event, 'fs18', 49)" class="i">msg</span><span class="o">?</span><span class="i">tuple</span><span class="o">.</span>[<span class="n">0</span>]<span class="o">.</span><span class="i">ValI</span>)
+          }
+    <span class="c">//run the bolt</span>
+    <span onmouseout="hideTip(event, 'fs23', 50)" onmouseover="showTip(event, 'fs23', 50)" class="f">logResult</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 51)" onmouseover="showTip(event, 'fs15', 51)" class="f">runner</span>
+</pre>
+</td>
+</tr>
+</table>
+
+<h1><a name="Topology-with-named-streams-and-config-overrides" class="anchor" href="#Topology-with-named-streams-and-config-overrides">Topology with named streams and config overrides</a></h1>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span class="i">StormDSL</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 52)" onmouseover="showTip(event, 'fs25', 52)" class="i">topology</span> <span class="o">=</span> 
+    { <span class="i">TopologyName</span> <span class="o">=</span> <span class="s">&quot;FstGuaranteed&quot;</span>
+      <span class="i">Spouts</span> <span class="o">=</span> 
+          [ { <span class="i">Id</span> <span class="o">=</span> <span class="s">&quot;ReliableSpout&quot;</span>
+              <span class="i">Outputs</span> <span class="o">=</span> [ <span class="i">Default</span> [ <span class="s">&quot;number&quot;</span> ] ]
+              <span class="i">Spout</span> <span class="o">=</span> <span class="i">Local</span> { <span class="i">Func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 53)" onmouseover="showTip(event, 'fs4', 53)" class="i">spout</span> (<span class="i">Storm</span><span class="o">.</span><span class="i">reliableSpoutRunner</span> <span class="i">Storm</span><span class="o">.</span><span class="i">defaultHousekeeper</span>) }
+              <span class="i">Config</span> <span class="o">=</span> <span class="i">jval</span> [ <span class="s">&quot;topology.max.spout.pending&quot;</span>, <span class="i">jval</span> <span class="n">123</span> ] <span class="c">// override &quot;backpressure&quot;</span>
+              <span class="i">Parallelism</span> <span class="o">=</span> <span class="n">1</span> } ]
+      <span class="i">Bolts</span> <span class="o">=</span> 
+          [ { <span class="i">Id</span> <span class="o">=</span> <span class="s">&quot;AddOneBolt&quot;</span>
+              <span class="i">Outputs</span> <span class="o">=</span> [ <span class="i">Named</span>(<span class="s">&quot;even&quot;</span>, [ <span class="s">&quot;number&quot;</span> ]) <span class="c">// named stream &quot;even&quot;</span>
+                          <span class="i">Named</span>(<span class="s">&quot;odd&quot;</span>, [ <span class="s">&quot;number&quot;</span> ]) ]
+              <span class="i">Inputs</span> <span class="o">=</span> [ <span class="i">DefaultStream</span> <span class="s">&quot;ReliableSpout&quot;</span>, <span class="i">Shuffle</span> ]
+              <span class="i">Bolt</span> <span class="o">=</span> <span class="i">Local</span> { <span class="i">Func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 54)" onmouseover="showTip(event, 'fs14', 54)" class="i">addOneBolt</span> <span class="i">Storm</span><span class="o">.</span><span class="i">autoAckBoltRunner</span> <span class="i">Storm</span><span class="o">.</span><span class="i">emit</span> }
+              <span class="i">Config</span> <span class="o">=</span> <span class="i">JsonNull</span>
+              <span class="i">Parallelism</span> <span class="o">=</span> <span class="n">2</span> }
+            { <span class="i">Id</span> <span class="o">=</span> <span class="s">&quot;EvenResultBolt&quot;</span>
+              <span class="i">Outputs</span> <span class="o">=</span> []
+              <span class="i">Inputs</span> <span class="o">=</span> [ <span class="i">Stream</span>(<span class="s">&quot;AddOneBolt&quot;</span>,<span class="s">&quot;even&quot;</span>), <span class="i">Shuffle</span> ]
+              <span class="i">Bolt</span> <span class="o">=</span> <span class="i">Local</span> { <span class="i">Func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 55)" onmouseover="showTip(event, 'fs20', 55)" class="i">resultBolt</span> <span class="i">Storm</span><span class="o">.</span><span class="i">autoAckBoltRunner</span> }
+              <span class="i">Config</span> <span class="o">=</span> <span class="i">jval</span> [<span class="s">&quot;desc&quot;</span>, <span class="s">&quot;even&quot;</span>] <span class="c">// pass custom config property to the component</span>
+              <span class="i">Parallelism</span> <span class="o">=</span> <span class="n">1</span> }
+            { <span class="i">Id</span> <span class="o">=</span> <span class="s">&quot;OddResultBolt&quot;</span>
+              <span class="i">Outputs</span> <span class="o">=</span> []
+              <span class="i">Inputs</span> <span class="o">=</span> [ <span class="i">Stream</span>(<span class="s">&quot;AddOneBolt&quot;</span>,<span class="s">&quot;odd&quot;</span>), <span class="i">Shuffle</span> ]
+              <span class="c">// logs to custom (FsLogging) pid-based log file</span>
+              <span class="i">Bolt</span> <span class="o">=</span> <span class="i">Local</span> { <span class="i">Func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 56)" onmouseover="showTip(event, 'fs20', 56)" class="i">resultBolt</span> <span class="i">Storm</span><span class="o">.</span><span class="i">autoAckBoltRunner</span> <span class="i">Logging</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 57)" onmouseover="showTip(event, 'fs26', 57)" class="i">log</span> }
+              <span class="i">Config</span> <span class="o">=</span> <span class="i">jval</span> [<span class="s">&quot;desc&quot;</span>, <span class="s">&quot;odd&quot;</span>] <span class="c">// pass custom config property to the component</span>
+              <span class="i">Parallelism</span> <span class="o">=</span> <span class="n">1</span> } ] }
+</pre>
+</td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">val rnd : System.Random<br /><br />Full name: Guaranteed.rnd</div>
+<div class="tip" id="fs2">namespace System</div>
+<div class="tip" id="fs3">Multiple items<br />type Random =<br />&#160;&#160;new : unit -&gt; Random + 1 overload<br />&#160;&#160;member Next : unit -&gt; int + 2 overloads<br />&#160;&#160;member NextBytes : buffer:byte[] -&gt; unit<br />&#160;&#160;member NextDouble : unit -&gt; float<br /><br />Full name: System.Random<br /><br />--------------------<br />System.Random() : unit<br />System.Random(Seed: int) : unit</div>
+<div class="tip" id="fs4">val spout : runner:(((&#39;a -&gt; &#39;b -&gt; unit) -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; &#39;c) -&gt; cfg:&#39;d -&gt; &#39;c<br /><br />Full name: Guaranteed.spout<br /><em><br /><br />cfg: the configution passed in by storm<br />runner: a spout runner function (passed in from topology)</em></div>
+<div class="tip" id="fs5">val runner : (((&#39;a -&gt; &#39;b -&gt; unit) -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; &#39;c)</div>
+<div class="tip" id="fs6">val cfg : &#39;a</div>
+<div class="tip" id="fs7">val count : int64 ref</div>
+<div class="tip" id="fs8">Multiple items<br />val ref : value:&#39;T -&gt; &#39;T ref<br /><br />Full name: Microsoft.FSharp.Core.Operators.ref<br /><br />--------------------<br />type &#39;T ref = Ref&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.ref&lt;_&gt;</div>
+<div class="tip" id="fs9">val next : ((&#39;a -&gt; &#39;b -&gt; unit) -&gt; unit -&gt; Async&lt;unit&gt;)</div>
+<div class="tip" id="fs10">val emit : (&#39;a -&gt; &#39;b -&gt; unit)</div>
+<div class="tip" id="fs11">val async : AsyncBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.async</div>
+<div class="tip" id="fs12">System.Random.Next() : int<br />System.Random.Next(maxValue: int) : int<br />System.Random.Next(minValue: int, maxValue: int) : int</div>
+<div class="tip" id="fs13">Ref.contents: int64</div>
+<div class="tip" id="fs14">val addOneBolt : runner:((obj -&gt; Async&lt;unit&gt;) -&gt; &#39;a) -&gt; emit:(&#39;b -&gt; unit) -&gt; cfg:&#39;c -&gt; &#39;a<br /><br />Full name: Guaranteed.addOneBolt<br /><em><br /><br />cfg: the configuration passed in from Storm<br />runner: passed in from topology<br />emit: passed in from topology</em></div>
+<div class="tip" id="fs15">val runner : ((obj -&gt; Async&lt;unit&gt;) -&gt; &#39;a)</div>
+<div class="tip" id="fs16">val emit : (&#39;a -&gt; unit)</div>
+<div class="tip" id="fs17">val add : (obj -&gt; Async&lt;unit&gt;)</div>
+<div class="tip" id="fs18">val msg : obj</div>
+<div class="tip" id="fs19">val x : int</div>
+<div class="tip" id="fs20">val resultBolt : runner:((obj -&gt; Async&lt;unit&gt;) -&gt; &#39;a) -&gt; log:(&#39;b -&gt; string -&gt; unit) -&gt; cfg:&#39;c -&gt; &#39;a<br /><br />Full name: Guaranteed.resultBolt<br /><em><br /><br />cfg: the configuration passed in by Storm<br />runner: passed in from topology<br />log: log write</em></div>
+<div class="tip" id="fs21">val log : (&#39;a -&gt; string -&gt; unit)</div>
+<div class="tip" id="fs22">val desc : &#39;a</div>
+<div class="tip" id="fs23">val logResult : (obj -&gt; Async&lt;unit&gt;)</div>
+<div class="tip" id="fs24">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs25">val topology : &#39;a<br /><br />Full name: Guaranteed.topology</div>
+<div class="tip" id="fs26">val log : value:&#39;T -&gt; &#39;T (requires member Log)<br /><br />Full name: Microsoft.FSharp.Core.Operators.log</div>
+
+        </div>
+        <div class="span3">
+          <img src="/FsStorm/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FsStorm</li>
+            <li><a href="/FsStorm/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FsStorm">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/##GitHome##/##GitName##">Source Code on GitHub</a></li>
+            <li><a href="/FsStorm/LICENSE.html">License</a></li>
+            <li><a href="/FsStorm/RELEASE_NOTES.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started
+            <li><a href="/FsStorm/sample.html">Basics</a>
+			<ul>
+			<li><a href="/FsStorm/sample.html#Defining-unreliable-spouts">Spout</a></li>
+			<li><a href="/FsStorm/sample.html#Defining-bolts">Bolt</a></li>
+			<li><a href="/FsStorm/sample.html#Using-F-DSL-to-define-the-topology">Topology</a></li>
+			<li><a href="/FsStorm/sample.html#Unit-testing-the-components">Unit-testing</a></li>
+			</ul>
+			</li>
+            <li><a href="/FsStorm/guaranteed.html">Guaranteed processing</a>
+			<ul>
+			<li><a href="/FsStorm/guaranteed.html#Defining-reliable-spouts">Reliable Spout</a></li>
+			<li><a href="/FsStorm/guaranteed.html#Anchoring-and-named-streams">Anchoring and named streams</a></li>
+			<li><a href="/FsStorm/guaranteed.html#Topology-with-named-streams-and-config-overrides">Parametrization</a></li>
+			</ul>
+			</li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FsStorm/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/##GitHome##/##GitName##"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
