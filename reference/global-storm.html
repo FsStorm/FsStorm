@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Storm - FsStorm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Faisal Waris, Eugene Tolmachev"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FsStorm/content/style.css" />
+    <script type="text/javascript" src="/FsStorm/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/FsStorm/FsStorm">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FsStorm/index.html">FsStorm</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Storm</h1>
+<div class="xmldoc">
+<p>Storm abstractions</p>
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="storm-configuration.html">Configuration</a>
+          </td>
+          <td class="xmldoc"><p>configuration info - received in the handshake and passed into each component/instance</p>
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="storm-loglevel.html">LogLevel</a>
+          </td>
+          <td class="xmldoc"><p>Storm log levels</p>
+</td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1', 1)" onmouseover="showTip(event, '1', 1)">
+            anchor original msg
+          </code>
+          <div class="tip" id="1">
+            <strong>Signature:</strong> original:&#39;?6187 -&gt; msg:Json -&gt; Json<br />
+                          <strong>Type parameters:</strong> '?6187          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L140-140" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>anchor to original message(s) - 
+updates anchors field with id or ids, if the original is a collection of messages</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+            autoAckBoltRunner reader
+          </code>
+          <div class="tip" id="2">
+            <strong>Signature:</strong> reader:(Json -&gt; Async&lt;&#39;?6208&gt;) -&gt; Async&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> '?6208          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L239-239" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>bolt runner that auto acks received msgs
+For more complex scenarios
+you may have to write your own runners
+See documentation on Storm concepts
+Note: Your implementation should handle "<em></em>hearbeat" messages (see code below)</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
+            defaultHousekeeper 
+          </code>
+          <div class="tip" id="3">
+            <strong>Signature:</strong> Json -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L281-281" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>In-memory helper for reliable spouts</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+            emit json
+          </code>
+          <div class="tip" id="4">
+            <strong>Signature:</strong> json:Json -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L127-127" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>write Json to stdout</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+            inboxMsgHandler (...)
+          </code>
+          <div class="tip" id="5">
+            <strong>Signature:</strong> onEmit:(Json -&gt; unit) -&gt; onAck:(Json -&gt; unit) -&gt; onFail:(Json -&gt; unit) -&gt; onTasks:(Json -&gt; unit) -&gt; MailboxProcessor&lt;Json&gt; -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L262-262" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>InboxProcessor-based protocol handler that can be used with reliable spouts to provide processing guarantees</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+            initIO ()
+          </code>
+          <div class="tip" id="6">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L40-40" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '7', 7)" onmouseover="showTip(event, '7', 7)">
+            isMono ()
+          </code>
+          <div class="tip" id="7">
+            <strong>Signature:</strong> unit -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L37-37" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>test if running on mono runtime</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '8', 8)" onmouseover="showTip(event, '8', 8)">
+            msgId j
+          </code>
+          <div class="tip" id="8">
+            <strong>Signature:</strong> j:Json -&gt; String<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L257-257" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>get tuple id</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '9', 9)" onmouseover="showTip(event, '9', 9)">
+            msgSource j
+          </code>
+          <div class="tip" id="9">
+            <strong>Signature:</strong> j:Json -&gt; String<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L259-259" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>get tuple source</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '10', 10)" onmouseover="showTip(event, '10', 10)">
+            namedStream name msg
+          </code>
+          <div class="tip" id="10">
+            <strong>Signature:</strong> name:&#39;?6189 -&gt; msg:Json -&gt; Json<br />
+                          <strong>Type parameters:</strong> '?6189          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L148-148" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>specify stream to write the tuple into</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '11', 11)" onmouseover="showTip(event, '11', 11)">
+            nextId ()
+          </code>
+          <div class="tip" id="11">
+            <strong>Signature:</strong> unit -&gt; int64<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L28-28" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>generate tuple ids (works for single instance spouts, only)</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '12', 12)" onmouseover="showTip(event, '12', 12)">
+            reliableEmit housekeeper id json
+          </code>
+          <div class="tip" id="12">
+            <strong>Signature:</strong> housekeeper:(Json -&gt; unit) -&gt; id:Int64 -&gt; json:Json -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L120-120" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>write Json to stdout with an ID (for reliable spouts)</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
+            reliableSpoutRunner (...)
+          </code>
+          <div class="tip" id="13">
+            <strong>Signature:</strong> housekeeper:(Json -&gt; unit) -&gt; createEmitter:((Int64 -&gt; Json -&gt; unit) -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L195-195" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>runner for reliable spouts</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '14', 14)" onmouseover="showTip(event, '14', 14)">
+            simpleSpoutRunner createEmitter
+          </code>
+          <div class="tip" id="14">
+            <strong>Signature:</strong> createEmitter:((Json -&gt; unit) -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L215-215" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>runner loop for simple spouts</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '15', 15)" onmouseover="showTip(event, '15', 15)">
+            stormAck id
+          </code>
+          <div class="tip" id="15">
+            <strong>Signature:</strong> id:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L79-79" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>multilang ack message</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
+            stormFail id
+          </code>
+          <div class="tip" id="16">
+            <strong>Signature:</strong> id:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L77-77" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>multilang fail message</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
+            stormLog msg lvl
+          </code>
+          <div class="tip" id="17">
+            <strong>Signature:</strong> msg:string -&gt; lvl:LogLevel -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L81-81" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>multilang log message</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
+            stormLogAndThrow msg r
+          </code>
+          <div class="tip" id="18">
+            <strong>Signature:</strong> msg:string -&gt; r:&#39;a -&gt; Async&lt;&#39;a&gt;<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L84-84" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>log to storm and throw exception</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
+            stormSendPid pid
+          </code>
+          <div class="tip" id="19">
+            <strong>Signature:</strong> pid:int -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L75-75" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>multilang pid message</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+            stormSync ()
+          </code>
+          <div class="tip" id="20">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L73-73" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>multilang sync message</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+            tuple fields
+          </code>
+          <div class="tip" id="21">
+            <strong>Signature:</strong> fields:seq&lt;obj&gt; -&gt; Json<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L132-132" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>produce a Storm tuple Json object</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+            tupleJoin x y
+          </code>
+          <div class="tip" id="22">
+            <strong>Signature:</strong> x:Json -&gt; y:Json -&gt; Json<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L151-151" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>join two touples combines fields from both</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FsStorm/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FsStorm</li>
+            <li><a href="/FsStorm/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FsStorm">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/FsStorm/FsStorm">Source Code on GitHub</a></li>
+            <li><a href="/FsStorm/LICENSE.html">License</a></li>
+            <li><a href="/FsStorm/RELEASE_NOTES.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started
+            <li><a href="/FsStorm/sample.html">Basics</a>
+			<ul>
+			<li><a href="/FsStorm/sample.html#Defining-unreliable-spouts">Spout</a></li>
+			<li><a href="/FsStorm/sample.html#Defining-bolts">Bolt</a></li>
+			<li><a href="/FsStorm/sample.html#Using-F-DSL-to-define-the-topology">Topology</a></li>
+			<li><a href="/FsStorm/sample.html#Unit-testing-the-components">Unit-testing</a></li>
+			</ul>
+			</li>
+            <li><a href="/FsStorm/guaranteed.html">Guaranteed processing</a>
+			<ul>
+			<li><a href="/FsStorm/guaranteed.html#Defining-reliable-spouts">Reliable Spout</a></li>
+			<li><a href="/FsStorm/guaranteed.html#Anchoring-and-named-streams">Anchoring and named streams</a></li>
+			<li><a href="/FsStorm/guaranteed.html#Topology-with-named-streams-and-config-overrides">Parametrization</a></li>
+			</ul>
+			</li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FsStorm/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/FsStorm/FsStorm"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
