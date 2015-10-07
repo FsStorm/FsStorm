@@ -39,8 +39,7 @@
 
 <p>a housekeeper</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -50,10 +49,8 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Maintains reliability semantics of a queueSpout.</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Maintains reliability semantics of a queueSpout.</span>
 <span class="c">/// ack: thread-safe method to ack a message by id.</span>
 <span class="c">/// nack: thread-safe method to nack a message by id.</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="f">createQueueHousekeeper</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="f">ack</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="f">nack</span> <span class="o">=</span> 
@@ -63,49 +60,39 @@
 		| <span class="s">&quot;fail&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="f">nack</span> (<span onmouseout="hideTip(event, 'fs5', 10)" onmouseover="showTip(event, 'fs5', 10)" class="f">int64</span> (<span class="i">msgId</span> <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="i">msg</span>))
 		| _ <span class="k">-&gt;</span> ()
 	
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>and custom runner</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Partially configures a reliable runner for the queues.</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Partially configures a reliable runner for the queues.</span>
 <span class="c">/// ack: thread-safe method to ack a message by id.</span>
 <span class="c">/// nack: thread-safe method to nack a message by id.</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="f">createQueueRunner</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="i">ack</span> <span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">nack</span> <span class="o">=</span> <span class="i">Storm</span><span class="o">.</span><span class="i">reliableSpoutRunner</span> 
                                         (<span onmouseout="hideTip(event, 'fs1', 15)" onmouseover="showTip(event, 'fs1', 15)" class="i">createQueueHousekeeper</span> (<span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">uint64</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs7', 17)" onmouseover="showTip(event, 'fs7', 17)" class="i">ack</span>) (<span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="i">uint64</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs8', 19)" onmouseover="showTip(event, 'fs8', 19)" class="i">nack</span>))
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>then given an event type</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="t">Event</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">m</span><span class="o">&gt;</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">msg</span><span class="o">:</span><span class="o">&#39;</span><span class="i">m</span>; <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">id</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="t">uint64</span> }
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="t">Event</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">m</span><span class="o">&gt;</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">msg</span><span class="o">:</span><span class="o">&#39;</span><span class="i">m</span>; <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">id</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="t">uint64</span> }
+</code></pre></td>
 </tr>
 </table>
 
 <p>we can declare a spout factory like this:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -115,10 +102,8 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Reads message from a queue into a tuple stream.</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Reads message from a queue into a tuple stream.</span>
 <span class="c">/// get: thread-safe event consumer.</span>
 <span class="c">/// toTuple: message object to Json tuple converter.</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 24)" onmouseover="showTip(event, 'fs13', 24)" class="f">createQueueSpout</span> <span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="f">get</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="f">toTuple</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="f">emit</span> <span class="o">=</span> 
@@ -128,54 +113,45 @@
 			| <span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">evt</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="f">toTuple</span> <span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="i">evt</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="i">msg</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="f">emit</span> (<span onmouseout="hideTip(event, 'fs5', 36)" onmouseover="showTip(event, 'fs5', 36)" class="f">int64</span> <span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="i">evt</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 38)" onmouseover="showTip(event, 'fs12', 38)" class="i">id</span>)
 			| <span onmouseout="hideTip(event, 'fs21', 39)" onmouseover="showTip(event, 'fs21', 39)" class="p">None</span> <span class="k">-&gt;</span> <span class="k">do</span> ()
 		}
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>and a queue/consumer interface</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// this is the consumer interface into the queue</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// this is the consumer interface into the queue</span>
 <span class="c">/// that returns three functions: get:unit-&gt;Event, ack:uint64-&gt;unit and nack:unit64-&gt;unit</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="f">getConsumer</span> <span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="i">cfg</span> <span class="o">=</span> 
 	((<span class="k">fun</span> () <span class="k">-&gt;</span> { <span class="i">msg</span> <span class="o">=</span> <span class="n">1b</span>; <span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="i">id</span> <span class="o">=</span> <span class="n">0ul</span> }), <span class="c">//get the next message and its id</span>
 	 (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs25', 43)" onmouseover="showTip(event, 'fs25', 43)" class="i">id</span> <span class="k">-&gt;</span> ()), <span class="c">// forward the ack to the queue</span>
 	 (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="i">id</span> <span class="k">-&gt;</span> ())) <span class="c">// forward the nack to the queue</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>we can implement the actual spout like this:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="f">statusEvents</span> <span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="f">getConsumer</span> (<span onmouseout="hideTip(event, 'fs30', 48)" onmouseover="showTip(event, 'fs30', 48)" class="i">cfg</span> <span class="o">:</span> <span class="i">Configuration</span>) <span class="o">=</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="f">statusEvents</span> <span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="f">getConsumer</span> (<span onmouseout="hideTip(event, 'fs30', 48)" onmouseover="showTip(event, 'fs30', 48)" class="i">cfg</span> <span class="o">:</span> <span class="i">Configuration</span>) <span class="o">=</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 49)" onmouseover="showTip(event, 'fs31', 49)" class="f">toTuple</span> (<span onmouseout="hideTip(event, 'fs32', 50)" onmouseover="showTip(event, 'fs32', 50)" class="i">id</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs33', 51)" onmouseover="showTip(event, 'fs33', 51)" class="t">string</span>,<span onmouseout="hideTip(event, 'fs34', 52)" onmouseover="showTip(event, 'fs34', 52)" class="i">status</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs35', 53)" onmouseover="showTip(event, 'fs35', 53)" class="t">byte</span>) <span class="o">=</span> 
         <span class="i">tuple</span> [ <span onmouseout="hideTip(event, 'fs32', 54)" onmouseover="showTip(event, 'fs32', 54)" class="i">id</span> ] 
         <span class="o">|&gt;</span> <span class="i">namedStream</span> (<span class="k">match</span> <span onmouseout="hideTip(event, 'fs36', 55)" onmouseover="showTip(event, 'fs36', 55)" class="i">char</span> <span onmouseout="hideTip(event, 'fs34', 56)" onmouseover="showTip(event, 'fs34', 56)" class="i">status</span> <span class="k">with</span> | <span class="s">&#39;1&#39;</span> <span class="k">-&gt;</span> <span class="s">&quot;online&quot;</span> | _ <span class="k">-&gt;</span> <span class="s">&quot;offline&quot;</span>)
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 57)" onmouseover="showTip(event, 'fs37', 57)" class="f">get</span>, <span onmouseout="hideTip(event, 'fs7', 58)" onmouseover="showTip(event, 'fs7', 58)" class="i">ack</span>, <span onmouseout="hideTip(event, 'fs8', 59)" onmouseover="showTip(event, 'fs8', 59)" class="i">nack</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 60)" onmouseover="showTip(event, 'fs29', 60)" class="f">getConsumer</span> <span onmouseout="hideTip(event, 'fs30', 61)" onmouseover="showTip(event, 'fs30', 61)" class="i">cfg</span>
     <span onmouseout="hideTip(event, 'fs13', 62)" onmouseover="showTip(event, 'fs13', 62)" class="f">createQueueSpout</span> <span onmouseout="hideTip(event, 'fs37', 63)" onmouseover="showTip(event, 'fs37', 63)" class="f">get</span> <span onmouseout="hideTip(event, 'fs31', 64)" onmouseover="showTip(event, 'fs31', 64)" class="f">toTuple</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 65)" onmouseover="showTip(event, 'fs28', 65)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs7', 66)" onmouseover="showTip(event, 'fs7', 66)" class="i">ack</span> <span onmouseout="hideTip(event, 'fs8', 67)" onmouseover="showTip(event, 'fs8', 67)" class="i">nack</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

@@ -36,8 +36,13 @@
 
 
 <h1>Storm</h1>
+<p>
+  <span>Namespace: global</span><br />
+</p>
 <div class="xmldoc">
 <p>Storm abstractions</p>
+
+
 </div>
 
 <!-- Render nested types and modules, if there are any -->
@@ -53,6 +58,8 @@
             <a href="storm-configuration.html">Configuration</a>
           </td>
           <td class="xmldoc"><p>configuration info - received in the handshake and passed into each component/instance</p>
+
+
 </td>
         </tr>
         <tr>
@@ -60,6 +67,8 @@
             <a href="storm-loglevel.html">LogLevel</a>
           </td>
           <td class="xmldoc"><p>Storm log levels</p>
+
+
 </td>
         </tr>
     </tbody>
@@ -80,8 +89,8 @@
             anchor original msg
           </code>
           <div class="tip" id="1">
-            <strong>Signature:</strong> original:&#39;?6190 -&gt; msg:Json -&gt; Json<br />
-                          <strong>Type parameters:</strong> '?6190          </div>
+            <strong>Signature:</strong> original:&#39;?7261 -&gt; msg:Json -&gt; Json<br />
+                          <strong>Type parameters:</strong> '?7261          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L140-140" class="github-link">
@@ -90,6 +99,8 @@
             </a>
           <p>anchor to original message(s) - 
 updates anchors field with id or ids, if the original is a collection of messages</p>
+
+
 
         </td>
       </tr>
@@ -100,8 +111,8 @@ updates anchors field with id or ids, if the original is a collection of message
             autoAckBoltRunner reader
           </code>
           <div class="tip" id="2">
-            <strong>Signature:</strong> reader:(Json -&gt; Async&lt;&#39;?6211&gt;) -&gt; Async&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> '?6211          </div>
+            <strong>Signature:</strong> reader:(Json -&gt; Async&lt;&#39;?7282&gt;) -&gt; Async&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> '?7282          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L239-239" class="github-link">
@@ -113,6 +124,8 @@ For more complex scenarios
 you may have to write your own runners
 See documentation on Storm concepts
 Note: Your implementation should handle "<em></em>hearbeat" messages (see code below)</p>
+
+
 
         </td>
       </tr>
@@ -133,6 +146,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>In-memory helper for reliable spouts</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -152,6 +167,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>write Json to stdout</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -170,6 +187,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>InboxProcessor-based protocol handler that can be used with reliable spouts to provide processing guarantees</p>
+
+
 
         </td>
       </tr>
@@ -208,6 +227,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>test if running on mono runtime</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -226,6 +247,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>get tuple id</p>
+
+
 
         </td>
       </tr>
@@ -246,6 +269,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>get tuple source</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -255,8 +280,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             namedStream name msg
           </code>
           <div class="tip" id="10">
-            <strong>Signature:</strong> name:&#39;?6192 -&gt; msg:Json -&gt; Json<br />
-                          <strong>Type parameters:</strong> '?6192          </div>
+            <strong>Signature:</strong> name:&#39;?7263 -&gt; msg:Json -&gt; Json<br />
+                          <strong>Type parameters:</strong> '?7263          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/Storm.fs#L148-148" class="github-link">
@@ -264,6 +289,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>specify stream to write the tuple into</p>
+
+
 
         </td>
       </tr>
@@ -284,6 +311,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>generate tuple ids (works for single instance spouts, only)</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -302,6 +331,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>write Json to stdout with an ID (for reliable spouts)</p>
+
+
 
         </td>
       </tr>
@@ -322,6 +353,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>runner for reliable spouts</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -340,6 +373,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>runner loop for simple spouts</p>
+
+
 
         </td>
       </tr>
@@ -360,6 +395,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>multilang ack message</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -378,6 +415,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>multilang fail message</p>
+
+
 
         </td>
       </tr>
@@ -398,6 +437,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>multilang log message</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -416,6 +457,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>log to storm and throw exception</p>
+
+
 
         </td>
       </tr>
@@ -436,6 +479,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>multilang pid message</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -454,6 +499,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>multilang sync message</p>
+
+
 
         </td>
       </tr>
@@ -474,6 +521,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
             </a>
           <p>produce a Storm tuple Json object</p>
 
+
+
         </td>
       </tr>
       <tr>
@@ -492,6 +541,8 @@ Note: Your implementation should handle "<em></em>hearbeat" messages (see code b
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
           <p>join two touples combines fields from both</p>
+
+
 
         </td>
       </tr>

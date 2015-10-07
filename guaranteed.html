@@ -39,8 +39,7 @@
 FsStorm implements reliability semantics with "housekeeper" functions: defaultHousekeeper can be used as is for transient sources or as an inspiration for reliability over external/persistent sources. 
 The spout implementation is fairly similar to the "unreliable" version, with the addition of unique (int64) tuple ID:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -56,10 +55,8 @@ The spout implementation is fairly similar to the "unreliable" version, with the
 <span class="l">14: </span>
 <span class="l">15: </span>
 <span class="l">16: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">rnd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">Random</span>() <span class="c">// used for generating random messages</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">rnd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">Random</span>() <span class="c">// used for generating random messages</span>
 
 <span class="c">///cfg: the configution passed in by storm</span>
 <span class="c">///runner: a spout runner function (passed in from topology)</span>
@@ -75,8 +72,7 @@ The spout implementation is fairly similar to the "unreliable" version, with the
     <span class="c">//run the spout</span>
     <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="f">next</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="f">runner</span>
 	
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -84,8 +80,7 @@ The spout implementation is fairly similar to the "unreliable" version, with the
 
 <p>FsStorm has helper functions to emit to a named stream or to anchor a tuple:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -102,10 +97,8 @@ The spout implementation is fairly similar to the "unreliable" version, with the
 <span class="l">15: </span>
 <span class="l">16: </span>
 <span class="l">17: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">///cfg: the configuration passed in from Storm</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">///cfg: the configuration passed in from Storm</span>
 <span class="c">///runner: passed in from topology</span>
 <span class="c">///emit: passed in from topology</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="f">addOneBolt</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="f">emit</span> <span onmouseout="hideTip(event, 'fs6', 22)" onmouseover="showTip(event, 'fs6', 22)" class="i">cfg</span> <span class="o">=</span> 
@@ -122,15 +115,13 @@ The spout implementation is fairly similar to the "unreliable" version, with the
         }
     <span class="c">//run the bolt</span>
     <span onmouseout="hideTip(event, 'fs17', 32)" onmouseover="showTip(event, 'fs17', 32)" class="f">add</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 33)" onmouseover="showTip(event, 'fs15', 33)" class="f">runner</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>Example of parametrization and use of the tuple's origin (component that emitted it and the stream that it arrived on) inspection:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -142,10 +133,8 @@ The spout implementation is fairly similar to the "unreliable" version, with the
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">///cfg: the configuration passed in by Storm</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">///cfg: the configuration passed in by Storm</span>
 <span class="c">///runner: passed in from topology</span>
 <span class="c">///log: log write</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="f">resultBolt</span> <span onmouseout="hideTip(event, 'fs15', 35)" onmouseover="showTip(event, 'fs15', 35)" class="f">runner</span> <span onmouseout="hideTip(event, 'fs21', 36)" onmouseover="showTip(event, 'fs21', 36)" class="f">log</span> (<span onmouseout="hideTip(event, 'fs6', 37)" onmouseover="showTip(event, 'fs6', 37)" class="i">cfg</span><span class="o">:</span><span class="i">Configuration</span>) <span class="o">=</span> 
@@ -157,15 +146,13 @@ The spout implementation is fairly similar to the "unreliable" version, with the
           }
     <span class="c">//run the bolt</span>
     <span onmouseout="hideTip(event, 'fs23', 50)" onmouseover="showTip(event, 'fs23', 50)" class="f">logResult</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 51)" onmouseover="showTip(event, 'fs15', 51)" class="f">runner</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <h1><a name="Topology-with-named-streams-and-config-overrides" class="anchor" href="#Topology-with-named-streams-and-config-overrides">Topology with named streams and config overrides</a></h1>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -196,10 +183,8 @@ The spout implementation is fairly similar to the "unreliable" version, with the
 <span class="l">29: </span>
 <span class="l">30: </span>
 <span class="l">31: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span class="i">StormDSL</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">StormDSL</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 52)" onmouseover="showTip(event, 'fs25', 52)" class="i">topology</span> <span class="o">=</span> 
     { <span class="i">TopologyName</span> <span class="o">=</span> <span class="s">&quot;FstGuaranteed&quot;</span>
@@ -230,8 +215,7 @@ The spout implementation is fairly similar to the "unreliable" version, with the
               <span class="i">Bolt</span> <span class="o">=</span> <span class="i">Local</span> { <span class="i">Func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 56)" onmouseover="showTip(event, 'fs20', 56)" class="i">resultBolt</span> <span class="i">Storm</span><span class="o">.</span><span class="i">autoAckBoltRunner</span> <span class="i">Logging</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 57)" onmouseover="showTip(event, 'fs26', 57)" class="i">log</span> }
               <span class="i">Config</span> <span class="o">=</span> <span class="i">jval</span> [<span class="s">&quot;desc&quot;</span>, <span class="s">&quot;odd&quot;</span>] <span class="c">// pass custom config property to the component</span>
               <span class="i">Parallelism</span> <span class="o">=</span> <span class="n">1</span> } ] }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
