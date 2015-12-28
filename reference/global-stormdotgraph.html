@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>StormTest - FsStorm</title>
+    <title>StormDotGraph - FsStorm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Faisal Waris, Eugene Tolmachev"/>
@@ -35,14 +35,11 @@
 
 
 
-<h1>StormTest</h1>
+<h1>StormDotGraph</h1>
 <p>
   <span>Namespace: global</span><br />
 </p>
 <div class="xmldoc">
-<p>Support for unit-testing of components</p>
-
-
 </div>
 
 <!-- Render nested types and modules, if there are any -->
@@ -56,19 +53,40 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
-            autoAckBoltRunner (...)
+          <code onmouseout="hideTip(event, '31', 31)" onmouseover="showTip(event, '31', 31)">
+            exportToDot (...)
           </code>
-          <div class="tip" id="45">
-            <strong>Signature:</strong> testData:seq&lt;Json&gt; -&gt; stormAck:(String -&gt; unit) -&gt; fReaderCreator:(Json -&gt; Async&lt;unit&gt;) -&gt; Async&lt;unit&gt;<br />
+          <div class="tip" id="31">
+            <strong>Signature:</strong> writeHeader:(TextWriter -&gt; Topology -&gt; unit) -&gt; writeFooter:(TextWriter -&gt; Topology -&gt; &#39;?7186) -&gt; writeSpout:(TextWriter -&gt; SpoutSpec -&gt; unit) -&gt; writeBolt:(TextWriter -&gt; BoltSpec -&gt; unit) -&gt; writeStream:(TextWriter -&gt; StreamId * Grouping * string -&gt; unit) -&gt; writer:TextWriter -&gt; topology:Topology -&gt; &#39;?7186<br />
+                          <strong>Type parameters:</strong> '?7186          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L6-6" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>send the topology to a given writer in GraphViz DOT format</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+            writeBolt writer b
+          </code>
+          <div class="tip" id="32">
+            <strong>Signature:</strong> writer:TextWriter -&gt; b:BoltSpec -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L36-36" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L31-31" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>test bolt runner that auto acks received msgs</p>
+          <p>node statement for a bolt</p>
 
 
 
@@ -77,19 +95,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
-            heartbeat 
+          <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
+            writeFooter writer arg2
           </code>
-          <div class="tip" id="46">
-            <strong>Signature:</strong> Json<br />
+          <div class="tip" id="33">
+            <strong>Signature:</strong> writer:TextWriter -&gt; Topology -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L56-56" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L25-25" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>multilang empty tuple for <em></em>heartbeat stream</p>
+          <p>closing graph statement</p>
 
 
 
@@ -98,19 +116,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
-            next 
+          <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
+            writeHeader writer t
           </code>
-          <div class="tip" id="47">
-            <strong>Signature:</strong> Json<br />
+          <div class="tip" id="34">
+            <strong>Signature:</strong> writer:TextWriter -&gt; t:Topology -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L58-58" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L17-17" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>multilang next command</p>
+          <p>opening graph statement</p>
 
 
 
@@ -119,19 +137,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
-            reliableSpoutRunner (...)
+          <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+            writeSpout writer s
           </code>
-          <div class="tip" id="48">
-            <strong>Signature:</strong> reliableEmit:((Json -&gt; unit) -&gt; &#39;?7165) -&gt; cmds:seq&lt;Json&gt; -&gt; housekeeper:(Json -&gt; unit) -&gt; fCreateEmitter:(&#39;?7165 -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; Async&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> '?7165          </div>
+          <div class="tip" id="35">
+            <strong>Signature:</strong> writer:TextWriter -&gt; s:SpoutSpec -&gt; unit<br />
+                      </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L8-8" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L28-28" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>test runner for reliable spouts</p>
+          <p>node statement for a spout</p>
 
 
 
@@ -140,19 +158,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
-            simpleSpoutRunner (...)
+          <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
+            writeStream writer (src, arg3, dst)
           </code>
-          <div class="tip" id="49">
-            <strong>Signature:</strong> emit:&#39;?7167 -&gt; cmds:seq&lt;Json&gt; -&gt; fCreateEmitter:(&#39;?7167 -&gt; unit -&gt; Async&lt;unit&gt;) -&gt; Async&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> '?7167          </div>
+          <div class="tip" id="36">
+            <strong>Signature:</strong> writer:TextWriter -&gt; (src:StreamId * Grouping * dst:string) -&gt; unit<br />
+                      </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L22-22" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L34-34" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>test runner loop for simple spouts</p>
+          <p>edge statement for a stream</p>
 
 
 
@@ -161,19 +179,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
-            src name msg
+          <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
+            writeToConsole 
           </code>
-          <div class="tip" id="50">
-            <strong>Signature:</strong> name:&#39;?7170 -&gt; msg:Json -&gt; Json<br />
-                          <strong>Type parameters:</strong> '?7170          </div>
+          <div class="tip" id="37">
+            <strong>Signature:</strong> Topology -&gt; unit<br />
+                      </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormTest.fs#L54-54" class="github-link">
+            <a href="http://github.com/FsStorm/FsStorm/tree/master/src/FsStorm/StormDotGraph.fs#L42-42" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>source the touple - set the comp propery</p>
+          <p>put together default implementations to write to STDOUT</p>
 
 
 
