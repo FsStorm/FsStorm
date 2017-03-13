@@ -1,11 +1,11 @@
+#### 0.0.11 - March 2017
+* Add ability to run a custom shell script per bolt
+
 #### 0.0.10 - May 2016
 * Empty JSON config for Storm 1.0.x
 
 #### 0.0.9 - December 2015
 * GraphViz topology export
-
-#### 0.0.7 - October 2015
-* Targeting F# 4.0
 
 #### 0.0.8 - October 2015
 * JAR without JDK
