@@ -302,3 +302,6 @@ let defaultHousekeeper =
 
     let mb = MailboxProcessor.Start (inboxMsgHandler onEmit onAck onFail onTasks)
     mb.Post
+
+module Config =
+    let useShellScript = "useShellScript"

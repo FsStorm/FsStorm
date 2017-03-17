@@ -58,11 +58,19 @@ let makeStreamInfo stream =
         si.Output_fields <- new List<string>(fields)
         name,si
 
-let translate exeName optionalArgs  (topology:StormDSL.Topology) : StormThrift.StormTopology =
+let translate exeName optionalArgs (topology:StormDSL.Topology) : StormThrift.StormTopology =
+    let applyShellScript cfg id =
+        if Storm.isMono() && cfg <> JsonNull && cfg.HasName Storm.Config.useShellScript && cfg?useShellScript.ValB then
+            // Storm treats optionalArgs as a single argument even if it has spaces. To work around this, we
+            // expect a shell script matching the Id of the component with a ".sh" extension.
+            "sh", [ sprintf "%s.sh" id ]
+        else exeName, optionalArgs
+    
     StormDSLValidate.validate topology
     let tp = new StormTopology()
     let bolts = topology.Bolts |> List.map (fun b ->
         let blt = new Bolt()
+        let exeName, optionalArgs = applyShellScript b.Config b.Id
         blt.Bolt_object <- makeComponent exeName optionalArgs b.Bolt
         let cmn = new ComponentCommon()
         //inputs
@@ -84,6 +92,7 @@ let translate exeName optionalArgs  (topology:StormDSL.Topology) : StormThrift.S
         )
     let spouts = topology.Spouts |> List.map (fun s ->
         let spt = new SpoutSpec()
+        let exeName, optionalArgs = applyShellScript s.Config s.Id
         spt.Spout_object <- makeComponent exeName optionalArgs s.Spout
         let cmn = new ComponentCommon()
         //outputs
