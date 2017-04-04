@@ -1,3 +1,6 @@
+#### 0.0.12 - April 2017
+* Add support for `activate` and `deactivate` spout messages introduced in Storm 1.1.0
+
 #### 0.0.11 - March 2017
 * Add ability to run a custom shell script per bolt
 
