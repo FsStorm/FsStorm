@@ -22,6 +22,10 @@ let internal EMIT = "emit"
 let internal TUPLE = "tuple"
 [<Literal>]
 let internal STREAM = "stream"
+[<Literal>]
+let internal ACTIVATE = "activate"
+[<Literal>]
+let internal DEACTIVATE = "deactivate"
 
 let mutable private _currentId = 0L
 ///generate tuple ids (works for single instance spouts, only)
@@ -203,7 +207,7 @@ let reliableSpoutRunner housekeeper createEmitter =
                 do! async { 
                     match cmd with
                     | NEXT            -> do! next()
-                    | ACK | FAIL | "" -> housekeeper jmsg      //empty is task list ids?
+                    | ACK | FAIL | ACTIVATE | DEACTIVATE | "" -> housekeeper jmsg      //empty is task list ids?
                     | _ -> failwithf "invalid cmd %s" cmd
                     stormSync() 
                 }
@@ -223,7 +227,7 @@ let simpleSpoutRunner createEmitter =
                 do! async { 
                     match cmd with
                     | NEXT            -> do! next()
-                    | ACK | FAIL | "" -> ()     //ignore other commands
+                    | ACK | FAIL | ACTIVATE | DEACTIVATE | "" -> ()     //ignore other commands
                     | _ -> failwithf "invalid cmd %s" cmd
                     stormSync()
                 }
@@ -259,7 +263,7 @@ let msgId (j:Json) = match j?id with JsonString s -> s | _ -> failwith (sprintf 
 let msgSource (j:Json) = match j?comp with JsonString s -> s | _ -> failwith (sprintf "Msg source not found in %A" j)
 
 /// InboxProcessor-based protocol handler that can be used with reliable spouts to provide processing guarantees
-let inboxMsgHandler onEmit onAck onFail onTasks = 
+let inboxMsgHandler onEmit onAck onFail onTasks onActivate onDeactivate = 
     let tag = "inboxMsgHandler"
     fun  (inbox : MailboxProcessor<Json>) ->
         async { 
@@ -271,6 +275,8 @@ let inboxMsgHandler onEmit onAck onFail onTasks =
                     | EMIT -> onEmit msg
                     | ACK -> onAck msg
                     | FAIL -> onFail msg
+                    | ACTIVATE -> onActivate msg
+                    | DEACTIVATE -> onDeactivate msg
                     | "" when isArray msg -> onTasks msg //assume task ids
                     | other -> failwithf "invalid command %A for msg %A" other msg
             with ex ->
@@ -300,7 +306,7 @@ let defaultHousekeeper =
         let prevMsg = ids.[id]
         ids.[id] <- (prevMsg?__taskids <- msg)
 
-    let mb = MailboxProcessor.Start (inboxMsgHandler onEmit onAck onFail onTasks)
+    let mb = MailboxProcessor.Start (inboxMsgHandler onEmit onAck onFail onTasks ignore ignore)
     mb.Post
 
 module Config =
