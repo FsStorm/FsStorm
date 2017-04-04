@@ -1,4 +1,6 @@
 language: csharp
+mono:
+  - 4.2.3 # Stick to F# 4.0 for now
 
 sudo: false  # use the new container-based Travis infrastructure
 
