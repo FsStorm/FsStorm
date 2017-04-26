@@ -1,3 +1,6 @@
+#### 0.0.13 - April 2017
+* Work around https://github.com/Microsoft/visualfsharp/issues/2416
+
 #### 0.0.12 - April 2017
 * Add support for `activate` and `deactivate` spout messages introduced in Storm 1.1.0
 

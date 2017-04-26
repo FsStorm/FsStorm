@@ -110,6 +110,10 @@ and JsonSlot = String * Json
 type Scanner = Scn of bool*(Char->Scanner)
 type Strn = int*string
 
+//TODO: remove once fix for https://github.com/Microsoft/visualfsharp/issues/2416 is released
+let inline (?) (a:Json) p = Json.(?) (a,p)
+let inline (?<-) (a:Json) k (v:Json) = Json.(?<-) (a,k,v)
+
 let tkTrue  = "true".ToCharArray()
 let tkFalse = "false".ToCharArray()
 let tkNull  = "null".ToCharArray()
